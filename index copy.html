@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Roshambo</title>
+        <style>
+            h1 {
+                text-align: center;
+                text-decoration: underline;
+                width: 100%;
+            }
+
+            .game-ctrl {
+                display: flex;
+                flex-direction: column;
+                width: 300px;
+                justify-content: center;
+                align-items: center;
+                background-color: turquoise;
+                height: 250px;
+                margin: auto;
+                border-radius: 3px;
+            }
+
+            button {
+                width: 100px;
+                height: 30px;
+                border-radius: 5px;
+                border: none;
+            }
+
+            h3 {
+                text-align: center;
+            }
+
+            p {
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>A game of Rock, Paper, Scissors.</h1>
+        <h3>Open the JS console of your browser before you proceed. <br>
+            First to score 3 is the winner.<br>
+            Thank you.</h3>
+        <div class="game-ctrl">
+            <h2>Click START to begin.</h2>
+            <button>START</button>
+    </div>
+    <p></p>
+    </body>
+    <script>
+        let playerScore = 0;
+        let compScore = 0;
+        let roundResult;
+
+
+        function computerPlay() {
+            let compRand = Math.floor(Math.random() * 3);
+            let computerSelection;
+
+            //randomly picks between rock, paper and scissors.
+            if (compRand == 0) {
+                computerSelection = 'Rock';
+            } else if (compRand == 1) {
+                computerSelection = 'Paper';
+            } else {
+                computerSelection = 'Scissors';
+            }
+        
+            return computerSelection;
+        }
+
+        function roundPlay(playerSelection, computerSelection) {
+
+            computerSelection = computerPlay();
+            playerSelection = prompt('Choose rock, paper or scissors.').toLowerCase(); //this makes the prompt value case insensitive
+
+            if (
+                (playerSelection == 'rock' && computerSelection == 'Rock') ||
+                (playerSelection == 'paper' && computerSelection == 'Paper') ||
+                (playerSelection == 'scissors' && computerSelection == 'Scissors')
+            ) {roundResult = 'DRAW!';
+            } else if (
+                (playerSelection == 'rock' && computerSelection == 'Scissors') ||
+                (playerSelection == 'scissors' && computerSelection == 'Paper') ||
+                (playerSelection == 'paper' && computerSelection == 'Rock')
+            ) {roundResult = 'WIN!';
+            } else if (
+                (playerSelection == 'rock' && computerSelection == 'Paper') ||
+                (playerSelection == 'paper' && computerSelection == 'Scissors') ||
+                (playerSelection == 'scissors' && computerSelection == 'Rock')
+            ) {roundResult = 'LOSE!';
+            } else {roundResult = 'Please pick a valid option.'}
+
+            return roundResult;
+            }
+            
+            
+        const btn = document.querySelector('button');
+        btn.onclick = game;
+
+        
+        function game() {
+            while (playerScore < 3 && compScore < 3) {
+                console.log(roundPlay());
+
+                if (roundResult == 'WIN!') {
+                    ++playerScore;
+                } else if (roundResult == 'LOSE!') {
+                    ++compScore;
+                }
+            }
+            
+            if (playerScore > compScore) {
+            alert('You are the WINNER.');
+        } else if (compScore > playerScore) {
+            alert('You lost. Better luck next time.');
+            }
+        }
+
+        
+    </script>
+</html>
